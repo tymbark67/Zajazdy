@@ -5,60 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zajazd u ?</title>
     <style>
-        /* W pełni naprawiony, bezpieczny układ z odblokowanym przewijaniem */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        html { scroll-behavior: smooth; height: 100%; }
+        /* Prosty, pancerny i w 100% niezawodny układ blokowy chroniący przed ucinaniem stron */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        html { scroll-behavior: smooth; }
         
         body { 
             background-color: #f8fafc; 
             color: #111111; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
+            display: block; 
             overflow-x: hidden; 
-            overflow-y: auto !important; 
+            overflow-y: scroll !important; /* Wymuszenie paska przewijania */
         }
         
-        /* Menu górne (Widoczna góra strony) */
-        header { background: white; border-bottom: 1px solid #eaeaea; position: sticky; top: 0; z-index: 50; width: 100%; }
-        .nav-container { max-width: 1200px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-        .logo-top { font-size: 20px; font-weight: 900; color: #111111; letter-spacing: -0.5px; text-decoration: none; }
-        
+        /* GÓRNE MENU */
+        header { background: white; border-bottom: 1px solid #eaeaea; width: 100%; display: block; }
+        .nav-container { max-width: 1000px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        .logo-top { font-size: 20px; font-weight: 900; color: #111111; text-decoration: none; }
         nav { display: flex; gap: 24px; }
-        nav a { font-size: 13px; font-weight: 700; color: #555c66; text-decoration: none; padding-bottom: 5px; transition: all 0.2s; border-bottom: 2px solid transparent; }
-        nav a:hover, nav a.active { color: #111111; border-bottom: 2px solid #111111; }
+        nav a { font-size: 13px; font-weight: 700; color: #555c66; text-decoration: none; padding-bottom: 5px; }
+        nav a:hover { color: #111111; border-bottom: 2px solid #111111; }
         
-        /* Sekcja główna - poprawione marginesy i elastyczność */
-        .hero-section { max-width: 1200px; width: 100%; margin: 0 auto; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 40px; flex-shrink: 0; }
+        /* SEKCJA GŁÓWNA - UKŁAD CENTROWANY */
+        .hero-section { max-width: 1000px; margin: 50px auto; padding: 20px; text-align: center; display: block; }
         
-        .hero-content { flex: 1; max-width: 600px; text-align: center; width: 100%; }
-        h1 { font-size: 56px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; text-transform: uppercase; color: #111111; line-height: 1.1; }
-        .desc { color: #555c66; font-size: 17px; line-height: 1.7; margin-bottom: 35px; }
+        /* KONTENER ROZEŚMIANEGO LUDZIKA */
+        .hero-image { display: block; margin: 0 auto 40px auto; width: 220px; height: 260px; position: relative; }
         
-        .buttons { display: flex; justify-content: center; }
-        .btn-black { padding: 16px 40px; font-weight: 700; font-size: 14px; border: none; border-radius: 10px; cursor: pointer; background-color: #111111; color: white; text-decoration: none; display: inline-block; box-shadow: 0 10px 15px -3px rgba(17, 24, 39, 0.2); transition: all 0.2s; }
-        .btn-black:hover { background-color: #1f2937; transform: translateY(-2px); box-shadow: 0 12px 20px -3px rgba(17, 24, 39, 0.3); }
-
-        /* Ulepszony roześmiany ludzik z żółtą koroną po lewej stronie */
-        .hero-image { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; width: 100%; max-width: 300px; }
-        .character-svg { width: 220px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; filter: drop-shadow(0px 15px 25px rgba(0,0,0,0.15)); }
-        .shadow-ellipse { width: 130px; height: 12px; background: rgba(0, 0, 0, 0.12); border-radius: 50%; margin-top: 5px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
-
-        @media (min-width: 768px) {
-            .hero-section { flex-direction: row; text-align: left; padding: 80px 20px; }
-            .hero-content { text-align: left; }
-            .buttons { justify-content: flex-start; }
+        /* ANIMACJA LEWITACJI I TRZĘSIENIA SIĘ ZE ŚMIECHU */
+        .character-svg { 
+            width: 220px; 
+            height: auto; 
+            animation: glosny-smiech 0.4s linear infinite alternate; 
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15)); 
         }
         
-        @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-16px); } }
-        @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.4; } }
+        /* ANIMACJA DYNAMICZNEGO ŚMIECHU (Szybkie podskakiwanie i wibracja głowy/ciała) */
+        @keyframes glosny-smiech {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(-1deg); }
+            50% { transform: translateY(0) rotate(1deg); }
+            75% { transform: translateY(-4px) rotate(-0.5deg); }
+            100% { transform: translateY(-1px) rotate(1deg); }
+        }
+
+        .shadow-ellipse { width: 130px; height: 12px; background: rgba(0, 0, 0, 0.12); border-radius: 50%; margin: 5px auto 0 auto; filter: blur(4px); }
         
-        /* Sekcja wyboru usług (Dół strony) */
-        .tickets-section { background-color: #ffffff; padding: 80px 20px; text-align: center; width: 100%; border-top: 1px solid #e2e8f0; flex-shrink: 0; }
+        /* TEKSTY I PRZYCISK */
+        .hero-content { display: block; max-width: 700px; margin: 0 auto; }
+        h1 { font-size: 54px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; text-transform: uppercase; color: #111111; }
+        .desc { color: #555c66; font-size: 17px; line-height: 1.7; margin-bottom: 35px; }
+        .btn-black { padding: 16px 40px; font-weight: 700; font-size: 14px; border: none; border-radius: 10px; cursor: pointer; background-color: #111111; color: white; text-decoration: none; display: inline-block; box-shadow: 0 10px 15px -3px rgba(17, 24, 39, 0.2); transition: all 0.2s; }
+        .btn-black:hover { background-color: #1f2937; transform: translateY(-2px); }
+
+        /* SEKCJA USŁUGI (NA PEWNO SIĘ WYŚWIETLI POD SPODEM) */
+        .tickets-section { background-color: #ffffff; padding: 80px 20px; text-align: center; width: 100%; border-top: 1px solid #e2e8f0; display: block; margin-top: 60px; }
         .section-title { font-size: 36px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; color: #111111; text-transform: uppercase; }
         .section-subtitle { color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 50px; text-transform: uppercase; }
-        
-        .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; }
         
         /* Karta z efektem blasku */
         .ticket-card { 
@@ -68,84 +70,103 @@
             width: 360px; 
             border: 1px solid #e2e8f0; 
             box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
             text-align: center; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
+            display: inline-block; 
             position: relative;
             overflow: hidden;
+            transition: all 0.3s;
         }
-        .ticket-card:hover { transform: translateY(-8px); box-shadow: 0 25px 35px -10px rgba(0, 0, 0, 0.1); border-color: #111111; }
-        
+        .ticket-card:hover { transform: translateY(-8px); border-color: #111111; }
         .ticket-card::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); }
         .ticket-card:hover::after { animation: shine 0.8s ease-in-out; }
         @keyframes shine { 100% { left: 150%; } }
         
-        .card-logo-container { margin-bottom: 25px; }
-        .black-badge { background-color: #111111; color: white; font-weight: 800; padding: 8px 22px; border-radius: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(17, 24, 39, 0.2); }
-        
+        .black-badge { background-color: #111111; color: white; font-weight: 800; padding: 8px 22px; border-radius: 6px; font-size: 13px; text-transform: uppercase; display: inline-block; margin-bottom: 25px; }
         .ticket-name { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #111111; }
         .ticket-price { font-size: 36px; font-weight: 850; color: #111111; margin-bottom: 25px; }
+        .card-btn { display: block; width: 100%; text-align: center; background-color: #111111; color: white; padding: 14px; font-size: 13px; text-decoration: none; font-weight: 700; border-radius: 8px; text-transform: uppercase; }
         
-        .card-btn { display: block; width: 100%; text-align: center; background-color: #111111; color: white; padding: 14px; font-size: 13px; text-decoration: none; font-weight: 700; border-radius: 8px; border: none; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(17, 24, 39, 0.15); transition: all 0.2s; }
-        .card-btn:hover { background-color: #1f2937; box-shadow: 0 6px 14px rgba(17, 24, 39, 0.25); }
-        
-        /* Stopka (Dół strony płynnie widoczny) */
-        footer { background: white; border-top: 1px solid #e2e8f0; padding: 40px 20px; width: 100%; margin-top: auto; flex-shrink: 0; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 20px; }
+        /* STOPKA (NIGDY NIE ZNIKNIE, ZAWSZE NA DOLE) */
+        footer { background: white; border-top: 1px solid #e2e8f0; padding: 40px 20px; width: 100%; display: block; margin-top: 60px; }
+        .footer-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .footer-socials { display: flex; gap: 10px; }
-        
-        .social-btn { width: 34px; height: 34px; background: #f8fafc; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #555c66; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0; }
-        .social-btn:hover { background-color: #111111; color: white; border-color: #111111; transform: translateY(-2px); }
-        
+        .social-btn { width: 34px; height: 34px; background: #f8fafc; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #555c66; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid #e2e8f0; }
         .footer-logo-center { font-size: 15px; font-weight: 900; color: #111111; background: #f1f5f9; padding: 5px 14px; border-radius: 5px; border: 1px solid #cbd5e1; }
-        .footer-links { display: flex; flex-direction: column; gap: 6px; align-items: center; }
-        .footer-links a { font-size: 11px; font-weight: 700; color: #666666; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 4px; transition: color 0.2s; }
-        .footer-links a:hover { color: #111111; }
-        
-        @media (min-width: 768px) { .footer-container { flex-direction: row; } .footer-links { align-items: flex-end; } }
+        .footer-links { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+        .footer-links a { font-size: 11px; font-weight: 700; color: #666666; text-decoration: none; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <!-- MENU GÓRNE -->
+    <!-- GÓRNE MENU -->
     <header>
         <div class="nav-container">
             <a href="#" class="logo-top">ZAJAZD.PL</a>
             <nav>
-                <a href="#" class="active">STRONA GŁÓWNA</a>
+                <a href="#">STRONA GŁÓWNA</a>
                 <a href="#bilety">BILET</a>
                 <a href="#footer-links-block">REGULAMIN</a>
             </nav>
         </div>
     </header>
 
-    <!-- SEKCJA GŁÓWNA -->
+    <!-- URUCHOMIONA SEKCJA GŁÓWNA -->
     <main class="hero-section">
-        <!-- ZMODYFIKOWANY LUDZIK Z DUŻYM UŚMIECHEM I ŻÓŁTĄ KORONĄ -->
+        
+        <!-- NAPRAWIONY ROZEŚMIANY LUDZIK (BEZ MIECZA, Z ŻÓŁTĄ KORONĄ) -->
         <div class="hero-image">
             <svg class="character-svg" viewBox="0 0 200 300" xmlns="http://w3.org">
-                <!-- NOWA: Ulepszona Żółta Korona z cieniowaniem 3D -->
+                <!-- Cieniowana Żółta Korona -->
                 <path d="M55 35 L78 58 L100 35 L122 58 L145 35 L135 75 L65 75 Z" fill="#eab308"/>
                 <path d="M78 58 L100 35 L122 58 L100 75 Z" fill="#ca8a04" opacity="0.4"/>
                 
                 <!-- Głowa postaci -->
                 <rect x="65" y="75" width="70" height="70" rx="12" fill="#0f172a"/>
                 
-                <!-- Oczy postaci (Biało-czarne z błyskiem) -->
-                <rect x="76" y="98" width="16" height="10" fill="#ffffff" rx="2"/>
-                <rect x="82" y="101" width="6" height="6" fill="#000000"/>
-                <rect x="108" y="98" width="16" height="10" fill="#ffffff" rx="2"/>
-                <rect x="114" y="101" width="6" height="6" fill="#000000"/>
+                <!-- Roześmiane oczy -->
+                <rect x="76" y="96" width="16" height="10" fill="#ffffff" rx="2"/>
+                <rect x="82" y="99" width="6" height="6" fill="#000000"/>
+                <rect x="108" y="96" width="16" height="10" fill="#ffffff" rx="2"/>
+                <rect x="114" y="99" width="6" height="6" fill="#000000"/>
                 
-                <!-- NOWY: Wielki, szeroki uśmiech (Ludzik śmieje się bardzo) -->
-                <path d="M 80 125 Q 100 142 120 125" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <!-- Wyraźny szeroki uśmiech (Ludzik śmieje się bardzo głośno) -->
+                <path d="M 76 120 Q 100 145 124 120" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round"/>
                 
-                <!-- Korpus / Zbroja -->
+                <!-- Korpus bez miecza (Ręce opuszczone) -->
                 <rect x="45" y="150" width="110" height="95" rx="16" fill="#0f172a"/>
                 <rect x="94" y="160" width="12" height="70" fill="#1e293b" rx="4"/>
-                
-                <!-- Fioletowy Miecz -->
-                <path d="M26 115 L38 115 L38 205 L26 205 Z" fill="#a855f7"/>
-                <path d="M29 118 L35 118 L35 202 L29 202 Z" fill="#e9d5ff" opacity="0.5"/>
+            </svg>
+            <div class="shadow-ellipse"></div>
+        </div>
+
+        <!-- Teksty i opisy -->
+        <div class="hero-content">
+            <h1>ZAJAZD U ?</h1>
+            <p class="desc">Serdecznie zapraszamy na jedyny w swoim rodzaju <strong>Zajazd u ?</strong>! Gwarantujemy, że wyjdziesz stąd niesamowicie rozśmieszony, w pełni zrelaksowany i niesłychanie zadowolony. Gwarantujemy, że zaraz po powrocie do domu Twoją jedyną myślą będzie ponowny powrót w nasze progi. Odkryj nasz wyśmienity Zajazd i już teraz zapewnij sobie wstęp na najbliższe wydarzenie!</p>
+
+            <div class="buttons">
+                <a href="#bilety" class="btn btn-black">ZAKUP BILET TERAZ !!</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- SEKCJA WYBORU USŁUGI (STABILNA I WIDOCZNA) -->
+    <section id="bilety" class="tickets-section">
+        <h2 class="section-title">WYBIERZ USŁUGĘ</h2>
+        <p class="section-subtitle">która cię interesuje!</p>
+        
+        <div class="tickets-container">
+            <div class="ticket-card">
+                <div class="black-badge">ZAJAZD U ?</div>
+                <h3 class="ticket-name">Zajazd PonadPodstawowy</h3>
+                <div class="ticket-price">15 zł</div>
+                <a href="#" class="card-btn" onclick="alert('Dziękujemy! System płatności dla Zajazdu u ? zostanie wkrótce uruchomiony.')">PRZEJDŹ DO ZAKUPU</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STOPKA -->
+    <footer id="footer-links-block">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <div class="social-btn" onclick="window.open('https://discord.gg', '_blank')">DC</div>
