@@ -7,46 +7,70 @@
     <style>
         /* Profesjonalny pakiet nowoczesnych stylów CSS wbudowany w stronę */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        html { scroll-behavior: smooth; } /* Płynne przewijanie do sekcji biletów */
-        body { background-color: #f9fafb; color: #111827; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #f9fafb; color: #111827; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; overflow-x: hidden; }
         
         /* Menu górne */
         header { background: white; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 50; }
         .nav-container { max-width: 1200px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-        .logo { font-size: 24px; font-weight: 900; color: #b45309; letter-spacing: -1px; } /* Zmiana koloru na elegancki brąz/bursztyn pasujący do zajazdu */
+        .logo { font-size: 24px; font-weight: 900; color: #b45309; letter-spacing: -1px; }
         nav a { font-size: 14px; font-weight: 600; color: #4b5563; text-decoration: none; margin-left: 24px; transition: color 0.2s; }
         nav a:hover, nav a.active { color: #b45309; }
         
-        /* Sekcja główna (Przedstawienie Zajazdu) */
-        main { flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .hero-content { max-width: 700px; text-align: center; }
+        /* Sekcja główna z podziałem na lewo i prawo */
+        main { flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 60px 20px; display: flex; flex-direction: column; md-flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
         
+        /* Lewa strona - Teksty */
+        .hero-content { max-width: 550px; text-align: center; }
         h1 { font-size: 64px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; color: #111827; }
-        .desc { color: #4b5563; font-size: 19px; margin-bottom: 36px; line-height: 1.7; }
-        
-        /* Przyciski */
-        .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .desc { color: #4b5563; font-size: 18px; margin-bottom: 36px; line-height: 1.7; }
+        .buttons { display: flex; gap: 16px; justify-content: center; }
         .btn { padding: 16px 48px; font-weight: 700; font-size: 16px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
         .btn-amber { background: #b45309; color: white; box-shadow: 0 10px 15px -3px rgba(180, 83, 9, 0.3); }
         .btn-amber:hover { background: #92400e; transform: translateY(-2px); }
+
+        /* Prawa strona - Animowana czarna postać z cieniem */
+        .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; width: 350px; height: 450px; }
         
-        /* Sekcja Biletów / Wydarzeń */
+        /* Wycięta czarna postać z fioletowym mieczem */
+        .character { width: 280px; height: auto; z-index: 10; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); animation: lewitacja 2s ease-in-out infinite alternate; }
+        
+        /* Dynamiczny cień pod postacią */
+        .shadow-ellipse { width: 160px; height: 18px; background: rgba(0, 0, 0, 0.15); border-radius: 50%; margin-top: -10px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
+
+        /* Reguły dla komputerów (tekst po lewej, postać po prawej) */
+        @media (min-width: 768px) {
+            main { flex-direction: row; text-align: left; padding: 100px 20px; }
+            .hero-content { text-align: left; }
+            .buttons { justify-content: flex-start; }
+        }
+        
+        /* ANIMACJA LEWITACJI (1 sekunda w górę, 1 sekunda w dół) */
+        @keyframes lewitacja {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); } /* Delikatne uniesienie w górę */
+        }
+
+        /* ANIMACJA SYNCHRONIZACJI CIENIA */
+        @keyframes cien-skala {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.85); opacity: 0.6; } /* Cień kurczy się i blednie, gdy postać leci w górę */
+        }
+        
+        /* Sekcja Biletów */
         .tickets-section { background: white; border-top: 1px solid #e5e7eb; padding: 80px 20px; text-align: center; width: 100%; }
         .section-title { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
         .section-subtitle { color: #6b7280; font-size: 15px; margin-bottom: 40px; }
-        
         .tickets-container { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
         .ticket-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 32px; width: 320px; text-align: left; transition: all 0.3s; }
         .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); border-color: #b45309; }
-        
-        .ticket-type { font-size: 12px; font-weight: 700; color: #b45309; tracking-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .ticket-type { font-size: 12px; font-weight: 700; color: #b45309; text-transform: uppercase; margin-bottom: 8px; display: block; }
         .ticket-name { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
         .ticket-price { font-size: 28px; font-weight: 800; margin-bottom: 20px; color: #111827; }
-        .ticket-btn { display: block; text-align: center; background: #111827; color: white; padding: 12px; rounded-radius: 8px; text-decoration: none; font-weight: 700; border-radius: 8px; transition: background 0.2s; }
+        .ticket-btn { display: block; text-align: center; background: #111827; color: white; padding: 12px; text-decoration: none; font-weight: 700; border-radius: 8px; transition: background 0.2s; }
         .ticket-btn:hover { background: #1f2937; }
         
-        /* Stopka */
-        footer { background: #111827; color: #9ca3af; text-align: center; padding: 24px; font-size: 13px; border-top: 1px solid #1f2937; }
+        footer { background: #111827; color: #9ca3af; text-align: center; padding: 24px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -62,16 +86,24 @@
         </div>
     </header>
 
-    <!-- SEKCJA GŁÓWNA (PRZEDSTAWIENIE ZAJAZDU) -->
+    <!-- SEKCJA GŁÓWNA -->
     <main>
+        <!-- Lewo: Teksty i akcja -->
         <div class="hero-content">
             <h1>Tradycyjny Zajazd</h1>
             <p class="desc">Zapraszamy do wyjątkowego miejsca, gdzie tradycyjna polska gościnność łączy się z nowoczesnym komfortem. Odkryj naszą wyśmienitą kuchnię, zrelaksuj się w przytulnych pokojach i weź udział w wyjątkowych wydarzeniach kulturalnych.</p>
 
             <div class="buttons">
-                <!-- Przycisk z linkiem przewijającym do sekcji biletów -->
                 <a href="#bilety" class="btn btn-amber">ZAKUP BILET TERAZ !!</a>
             </div>
+        </div>
+
+        <!-- Prawo: Nowa animowana czarna postać z cieniem z Twojego zrzutu -->
+        <div class="hero-right">
+            <!-- Wklejona bezpośrednio grafika czarnego skina Minecraft z fioletowym mieczem -->
+            <img src="https://ibb.co" alt="Czarna Postać" class="character">
+            <!-- Dynamiczny, rozmyty cień pod stopami postaci -->
+            <div class="shadow-ellipse"></div>
         </div>
     </main>
 
@@ -81,7 +113,6 @@
         <p class="section-subtitle">Wybierz bilet na interesujące Cię wydarzenie w naszym Zajeździe</p>
         
         <div class="tickets-container">
-            <!-- Przykładowy Bilet 1 -->
             <div class="ticket-card">
                 <span class="ticket-type">Wydarzenie</span>
                 <h3 class="ticket-name">Wieczór z Muzyką na Żywo</h3>
@@ -89,7 +120,6 @@
                 <a href="#" class="ticket-btn" onclick="alert('System płatności zostanie uruchomiony wkrótce!')">Wybierz</a>
             </div>
 
-            <!-- Przykładowy Bilet 2 -->
             <div class="ticket-card">
                 <span class="ticket-type">Uczta</span>
                 <h3 class="ticket-name">Biesiada Staropolska</h3>
