@@ -31,7 +31,7 @@
         .btn-blue { padding: 16px 40px; font-weight: 700; font-size: 14px; border: none; border-radius: 10px; cursor: pointer; background-color: #2563eb; color: white; text-decoration: none; display: inline-block; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); transition: all 0.2s; }
         .btn-blue:hover { background-color: #1d4ed8; transform: translateY(-2px); box-shadow: 0 12px 20px -3px rgba(37, 99, 235, 0.4); }
 
-        /* PRAWA STRONA - CAŁKOWICIE NAPRAWIONY I NIEZNISZCZALNY LUDZIK W SVG */
+        /* PRAWA STRONA - NIEZNISZCZALNY LUDZIK W SVG */
         .hero-image { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; margin-top: 20px; }
         .character-svg { width: 220px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; filter: drop-shadow(0px 15px 25px rgba(0,0,0,0.15)); }
         .shadow-ellipse { width: 130px; height: 12px; background: rgba(0, 0, 0, 0.12); border-radius: 50%; margin-top: 5px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
@@ -53,20 +53,21 @@
         
         .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; }
         
-        /* ULEPSZONA I NAPRAWIONA KARTA OFERTY ZE ZDJĘCIA (NIEBIESKI STYL PREMIUM) */
+        /* ULEPSZONA KARTA OFERTY ZE ZDJĘCIA */
         .ticket-card { background: white; padding: 40px 30px; border-radius: 16px; width: 340px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02); transition: all 0.3s ease-in-out; text-align: center; display: flex; flex-direction: column; align-items: center; }
         .ticket-card:hover { transform: translateY(-6px); box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.15); border-color: #2563eb; }
         
-        /* Plakietka - zmieniona z czerwonej na piękną niebieską */
+        /* Profesjonalna niebieska plakietka */
         .card-logo-container { margin-bottom: 25px; }
         .blue-badge { background-color: #2563eb; color: white; font-weight: 800; padding: 8px 20px; border-radius: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25); }
         
         .ticket-name { font-size: 19px; font-weight: 700; margin-bottom: 12px; color: #111111; }
-        /* Cena - zmieniona z zielonej na mocny, jasny niebieski */
+        /* Cena w kolorze niebieskim */
         .ticket-price { font-size: 34px; font-weight: 850; color: #2563eb; margin-bottom: 25px; }
         
-        .card-link { font-size: 12px; color: #888888; text-decoration: none; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
-        .ticket-card:hover .card-link { color: #2563eb; }
+        /* NOWY POPRAWIONY PRZYCISK ZAMIAST UCIEKającego NAPISU */
+        .card-btn { display: block; width: 100%; text-align: center; background-color: #2563eb; color: white; padding: 12px; font-size: 13px; text-decoration: none; font-weight: 700; border-radius: 8px; border: none; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15); transition: all 0.2s; }
+        .card-btn:hover { background-color: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25); }
         
         /* Dolny pasek i stopka */
         footer { background: white; border-top: 1px solid #eaeaea; padding: 40px 20px; width: 100%; margin-top: auto; }
@@ -113,21 +114,16 @@
             </div>
         </div>
 
-        <!-- ULEPSZONY, PROFESJONALNY MODEL LUDZIKA 3D W KODZIE SVG -->
+        <!-- MODEL LUDZIKA 3D W KODZIE SVG -->
         <div class="hero-image">
             <svg class="character-svg" viewBox="0 0 200 300" xmlns="http://w3.org">
-                <!-- Cieniowana Niebieska Korona -->
                 <path d="M55 35 L78 58 L100 35 L122 58 L145 35 L135 75 L65 75 Z" fill="#2563eb"/>
                 <path d="M78 58 L100 35 L122 58 L100 75 Z" fill="#1d4ed8" opacity="0.3"/>
-                <!-- Głowa -->
                 <rect x="65" y="75" width="70" height="70" rx="12" fill="#0f172a"/>
-                <!-- Fioletowe Oczy -->
                 <rect x="78" y="100" width="14" height="8" fill="#c084fc" rx="2"/>
                 <rect x="108" y="100" width="14" height="8" fill="#c084fc" rx="2"/>
-                <!-- Korpus / Zbroja -->
                 <rect x="45" y="150" width="110" height="95" rx="16" fill="#0f172a"/>
                 <rect x="94" y="160" width="12" height="70" fill="#1e293b" rx="4"/>
-                <!-- Fioletowy Miecz -->
                 <path d="M26 115 L38 115 L38 205 L26 205 Z" fill="#a855f7"/>
                 <path d="M29 118 L35 118 L35 202 L29 202 Z" fill="#e9d5ff" opacity="0.5"/>
                 <path d="M16 195 L48 195 L48 203 L16 203 Z" fill="#7c3aed" rx="2"/>
@@ -137,7 +133,7 @@
         </div>
     </main>
 
-    <!-- SEKCJA Z BILETAMI (ULEPSZONA 1:1 NIEBIESKA KARTA ZE ZDJĘCIA) -->
+    <!-- SEKCJA Z BILETAMI -->
     <section id="bilety" class="tickets-section">
         <h2 class="section-title">WYBIERZ TRYB</h2>
         <p class="section-subtitle">Na którym chcesz dokonać zakupu!</p>
@@ -145,3 +141,5 @@
         <div class="tickets-container">
             <div class="ticket-card">
                 <div class="card-logo-container">
+                    <span class="blue-badge">ZAJAZD U PIOTRA</span>
+                </div>
