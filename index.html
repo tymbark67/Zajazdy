@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zajazd u ?</title>
     <style>
-        /* Stabilny, zablokowany na kolory Czarno-Białe arkusz stylów */
+        /* W pełni naprawiony, bezpieczny układ z odblokowanym przewijaniem */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; height: 100%; }
         
-        /* Odblokowane i w pełni płynne przewijanie pionowe */
         body { 
             background-color: #f8fafc; 
             color: #111111; 
@@ -20,8 +19,8 @@
             overflow-y: auto !important; 
         }
         
-        /* Menu górne (Akcenty zmienione na czarne) */
-        header { background: white; border-bottom: 1px solid #eaeaea; position: sticky; top: 0; z-index: 50; }
+        /* Menu górne (Widoczna góra strony) */
+        header { background: white; border-bottom: 1px solid #eaeaea; position: sticky; top: 0; z-index: 50; width: 100%; }
         .nav-container { max-width: 1200px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
         .logo-top { font-size: 20px; font-weight: 900; color: #111111; letter-spacing: -0.5px; text-decoration: none; }
         
@@ -29,25 +28,24 @@
         nav a { font-size: 13px; font-weight: 700; color: #555c66; text-decoration: none; padding-bottom: 5px; transition: all 0.2s; border-bottom: 2px solid transparent; }
         nav a:hover, nav a.active { color: #111111; border-bottom: 2px solid #111111; }
         
-        /* Sekcja główna - Ludzik po lewej, tekst po prawej */
-        .hero-section { max-width: 1200px; width: 100%; margin: 0 auto; padding: 80px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 40px; }
+        /* Sekcja główna - poprawione marginesy i elastyczność */
+        .hero-section { max-width: 1200px; width: 100%; margin: 0 auto; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 40px; flex-shrink: 0; }
         
         .hero-content { flex: 1; max-width: 600px; text-align: center; width: 100%; }
         h1 { font-size: 56px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; text-transform: uppercase; color: #111111; line-height: 1.1; }
         .desc { color: #555c66; font-size: 17px; line-height: 1.7; margin-bottom: 35px; }
         
         .buttons { display: flex; justify-content: center; }
-        /* Główny przycisk zmieniony na czarny z czarnym cieniem */
         .btn-black { padding: 16px 40px; font-weight: 700; font-size: 14px; border: none; border-radius: 10px; cursor: pointer; background-color: #111111; color: white; text-decoration: none; display: inline-block; box-shadow: 0 10px 15px -3px rgba(17, 24, 39, 0.2); transition: all 0.2s; }
         .btn-black:hover { background-color: #1f2937; transform: translateY(-2px); box-shadow: 0 12px 20px -3px rgba(17, 24, 39, 0.3); }
 
-        /* Niezniszczalny ludzik w kodzie SVG po lewej stronie */
+        /* Ulepszony roześmiany ludzik z żółtą koroną po lewej stronie */
         .hero-image { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; width: 100%; max-width: 300px; }
         .character-svg { width: 220px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; filter: drop-shadow(0px 15px 25px rgba(0,0,0,0.15)); }
         .shadow-ellipse { width: 130px; height: 12px; background: rgba(0, 0, 0, 0.12); border-radius: 50%; margin-top: 5px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
 
         @media (min-width: 768px) {
-            .hero-section { flex-direction: row; text-align: left; padding: 100px 20px; }
+            .hero-section { flex-direction: row; text-align: left; padding: 80px 20px; }
             .hero-content { text-align: left; }
             .buttons { justify-content: flex-start; }
         }
@@ -55,14 +53,14 @@
         @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-16px); } }
         @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.4; } }
         
-        /* Sekcja wyboru usług na dole strony */
-        .tickets-section { background-color: #ffffff; padding: 100px 20px; text-align: center; width: 100%; border-top: 1px solid #e2e8f0; }
+        /* Sekcja wyboru usług (Dół strony) */
+        .tickets-section { background-color: #ffffff; padding: 80px 20px; text-align: center; width: 100%; border-top: 1px solid #e2e8f0; flex-shrink: 0; }
         .section-title { font-size: 36px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; color: #111111; text-transform: uppercase; }
         .section-subtitle { color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 50px; text-transform: uppercase; }
         
         .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; }
         
-        /* Karta z czarnymi akcentami i efektem blasku */
+        /* Karta z efektem blasku */
         .ticket-card { 
             background: white; 
             padding: 45px 35px; 
@@ -80,25 +78,21 @@
         }
         .ticket-card:hover { transform: translateY(-8px); box-shadow: 0 25px 35px -10px rgba(0, 0, 0, 0.1); border-color: #111111; }
         
-        /* Efekt przejeżdżającego blasku */
         .ticket-card::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); }
         .ticket-card:hover::after { animation: shine 0.8s ease-in-out; }
         @keyframes shine { 100% { left: 150%; } }
         
         .card-logo-container { margin-bottom: 25px; }
-        /* Plakietka zmieniona na czarną */
         .black-badge { background-color: #111111; color: white; font-weight: 800; padding: 8px 22px; border-radius: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(17, 24, 39, 0.2); }
         
         .ticket-name { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #111111; }
-        /* Cena zmieniona na czarną */
         .ticket-price { font-size: 36px; font-weight: 850; color: #111111; margin-bottom: 25px; }
         
-        /* Przycisk w karcie zmieniony na czarny */
         .card-btn { display: block; width: 100%; text-align: center; background-color: #111111; color: white; padding: 14px; font-size: 13px; text-decoration: none; font-weight: 700; border-radius: 8px; border: none; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(17, 24, 39, 0.15); transition: all 0.2s; }
         .card-btn:hover { background-color: #1f2937; box-shadow: 0 6px 14px rgba(17, 24, 39, 0.25); }
         
-        /* Stopka dolna */
-        footer { background: white; border-top: 1px solid #e2e8f0; padding: 40px 20px; width: 100%; margin-top: auto; }
+        /* Stopka (Dół strony płynnie widoczny) */
+        footer { background: white; border-top: 1px solid #e2e8f0; padding: 40px 20px; width: 100%; margin-top: auto; flex-shrink: 0; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 20px; }
         .footer-socials { display: flex; gap: 10px; }
         
@@ -127,26 +121,31 @@
         </div>
     </header>
 
-    <!-- SEKCJA GŁÓWNA (HERO) -->
+    <!-- SEKCJA GŁÓWNA -->
     <main class="hero-section">
-        <!-- Ludzik po lewej ze stabilną czarną koroną pasującą do nowego stylu -->
+        <!-- ZMODYFIKOWANY LUDZIK Z DUŻYM UŚMIECHEM I ŻÓŁTĄ KORONĄ -->
         <div class="hero-image">
             <svg class="character-svg" viewBox="0 0 200 300" xmlns="http://w3.org">
-                <path d="M55 35 L78 58 L100 35 L122 58 L145 35 L135 75 L65 75 Z" fill="#111111"/>
-                <path d="M78 58 L100 35 L122 58 L100 75 Z" fill="#1f2937" opacity="0.3"/>
+                <!-- NOWA: Ulepszona Żółta Korona z cieniowaniem 3D -->
+                <path d="M55 35 L78 58 L100 35 L122 58 L145 35 L135 75 L65 75 Z" fill="#eab308"/>
+                <path d="M78 58 L100 35 L122 58 L100 75 Z" fill="#ca8a04" opacity="0.4"/>
+                
+                <!-- Głowa postaci -->
                 <rect x="65" y="75" width="70" height="70" rx="12" fill="#0f172a"/>
-                <rect x="78" y="100" width="14" height="8" fill="#c084fc" rx="2"/>
-                <rect x="108" y="100" width="14" height="8" fill="#c084fc" rx="2"/>
+                
+                <!-- Oczy postaci (Biało-czarne z błyskiem) -->
+                <rect x="76" y="98" width="16" height="10" fill="#ffffff" rx="2"/>
+                <rect x="82" y="101" width="6" height="6" fill="#000000"/>
+                <rect x="108" y="98" width="16" height="10" fill="#ffffff" rx="2"/>
+                <rect x="114" y="101" width="6" height="6" fill="#000000"/>
+                
+                <!-- NOWY: Wielki, szeroki uśmiech (Ludzik śmieje się bardzo) -->
+                <path d="M 80 125 Q 100 142 120 125" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"/>
+                
+                <!-- Korpus / Zbroja -->
                 <rect x="45" y="150" width="110" height="95" rx="16" fill="#0f172a"/>
                 <rect x="94" y="160" width="12" height="70" fill="#1e293b" rx="4"/>
+                
+                <!-- Fioletowy Miecz -->
                 <path d="M26 115 L38 115 L38 205 L26 205 Z" fill="#a855f7"/>
                 <path d="M29 118 L35 118 L35 202 L29 202 Z" fill="#e9d5ff" opacity="0.5"/>
-                <path d="M16 195 L48 195 L48 203 L16 203 Z" fill="#7c3aed" rx="2"/>
-                <rect x="29" y="203" width="6" height="22" fill="#475569" rx="1"/>
-            </svg>
-            <div class="shadow-ellipse"></div>
-        </div>
-
-        <!-- Teksty po prawej (Imię Piotr zmienione na znaki zapytania) -->
-        <div class="hero-content">
-            <h1>ZAJAZD U ?</h1>
