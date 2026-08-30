@@ -19,10 +19,9 @@
         nav a { font-size: 14px; font-weight: 700; color: #334155; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; transition: all 0.2s ease-in-out; }
         nav a:hover, nav a.active { color: #2563eb; border-bottom: 2px solid #2563eb; }
         
-        /* Sekcja główna z bezpiecznym logiem tekstowym 3D */
+        /* Sekcja główna */
         main { flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; }
         
-        /* Stabilne, stylizowane logo główne (nie zniknie!) */
         .main-title-3d { 
             font-size: 72px; 
             font-weight: 900; 
@@ -42,60 +41,133 @@
         .btn-blue { background: #2563eb; color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
         .btn-blue:hover { background: #1d4ed8; transform: translateY(-2px); }
 
-        /* Lewitująca postać */
+        /* ULEPSZONY LUDZIK (Bogatsze SVG z detalami) */
         .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; margin-top: 40px; }
-        .character-svg { width: 180px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; }
-        .shadow-ellipse { width: 120px; height: 12px; background: rgba(15, 23, 42, 0.15); border-radius: 50%; margin-top: 10px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
+        .character-svg { width: 190px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; filter: drop-shadow(0 15px 25px rgba(37, 99, 235, 0.25)); }
+        .shadow-ellipse { width: 120px; height: 12px; background: rgba(15, 23, 42, 0.18); border-radius: 50%; margin-top: 10px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
 
-        @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-15px); } }
-        @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.85); opacity: 0.5; } }
+        @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-18px); } }
+        @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.4; } }
         
-        /* Sekcja wyboru trybu ze zrzutu ekranu */
+        /* Sekcja wyboru trybu */
         .tickets-section { background: white; border-top: 1px solid #e2e8f0; padding: 80px 20px; text-align: center; width: 100%; }
-        .section-title { font-size: 42px; font-weight: 800; font-family: 'Segoe UI', sans-serif; letter-spacing: 2px; color: #0b1528; text-transform: uppercase; margin-bottom: 12px; }
-        .section-subtitle { color: #828a99; font-size: 13px; font-weight: 700; font-family: 'Segoe UI', sans-serif; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 40px; }
+        .section-title { font-size: 42px; font-weight: 800; letter-spacing: 2px; color: #0b1528; text-transform: uppercase; margin-bottom: 12px; }
+        .section-subtitle { color: #828a99; font-size: 13px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 40px; }
         
         .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; }
         
-        /* NOWA KARTA KAFELKOWA (DOKŁADNIE JAK NA TWÓIM OBRAZKU) */
+        /* Karta kafelkowa z nowym logo oferty */
         .ticket-card { 
             background: white; 
             border: 1px solid #e2e8f0; 
-            border-radius: 4px; 
+            border-radius: 8px; 
             padding: 40px; 
             width: 380px; 
             text-align: center; 
             transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
-        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
+        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1); border-color: #2563eb; }
         
-        /* Stylizowane, bezpieczne graficzne logo Anarchia wewnątrz karty */
+        /* Zmiana z Anarchia na Zajazd u Piotra wewnątrz karty */
         .card-image-logo {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
-            color: #dc2626;
-            text-shadow: 0 3px 0 #991b1b, 0 6px 10px rgba(220, 38, 38, 0.3);
+            color: #2563eb;
+            text-shadow: 0 2px 0 #1d4ed8, 0 4px 8px rgba(37, 99, 235, 0.3);
             letter-spacing: -1px;
             margin-bottom: 25px;
-            background: #fef2f2;
+            background: #eff6ff;
             padding: 15px 30px;
             border-radius: 8px;
-            border: 2px dashed #fca5a5;
+            border: 2px dashed #93c5fd;
             display: inline-block;
+            text-transform: uppercase;
         }
 
-        .ticket-name { font-size: 22px; font-weight: 800; color: #0b1528; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-        .ticket-price { font-size: 26px; font-weight: 900; color: #2563eb; margin-bottom: 20px; }
+        .ticket-name { font-size: 20px; font-weight: 800; color: #0b1528; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .ticket-price { font-size: 28px; font-weight: 900; color: #0f172a; margin-bottom: 20px; }
         
         .ticket-btn { font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.2s; }
         .ticket-btn:hover { color: #2563eb; }
         
-        /* Stopka */
-        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
+        /* ROZBUDOWANY I ULEPSZONY DOŁ STRONY (STOPKA ZE ZRZUTU EKRANU) */
+        footer { 
+            background: white; 
+            border-top: 1px solid #e2e8f0; 
+            padding: 40px 20px; 
+            width: 100%;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            md-flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        
+        /* Social Media (Lewa strona) */
+        .footer-socials { display: flex; gap: 12px; }
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+        .social-icon:hover { background: #2563eb; color: white; border-color: #2563eb; transform: translateY(-2px); }
+        
+        /* Logo na środku */
+        .footer-logo-center {
+            font-size: 20px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            background: #eff6ff;
+            padding: 6px 16px;
+            border-radius: 6px;
+            border: 1px solid #bfdbfe;
+        }
+        
+        /* Prawa strona z dokumentami i ikonkami */
+        .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+        .footer-links a {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: #2563eb; }
+        
+        .icon-box {
+            font-size: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 2px 5px;
+            border-radius: 4px;
+            background: #f8fafc;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container { flex-direction: row; }
+        }
     </style>
 </head>
 <body>
@@ -107,14 +179,13 @@
             <nav>
                 <a href="#" class="active">STRONA GŁÓWNA</a>
                 <a href="#bilety">BILET</a>
-                <a href="#" onclick="alert('Regulamin Zajazdu zostanie dodany wkrótce!')">REGULAMIN</a>
+                <a href="#regulamin">REGULAMIN</a>
             </nav>
         </div>
     </header>
 
     <!-- SEKCJA GŁÓWNA -->
     <main>
-        <!-- Zabezpieczony nagłówek 3D, który działa od razu -->
         <h1 class="main-title-3d">ZAJAZD U PIOTRA</h1>
 
         <div class="hero-content">
@@ -125,45 +196,20 @@
             </div>
         </div>
 
-        <!-- Postać królewska SVG -->
+        <!-- ULEPSZONY LUDZIK Z LEPSZYMI DETALAMI KORONY I MIECZA -->
         <div class="hero-right">
             <svg class="character-svg" viewBox="0 0 200 300" xmlns="http://w3.org">
-                <path d="M60 40 L80 60 L100 40 L120 60 L140 40 L130 80 L70 80 Z" fill="#2563eb"/>
-                <rect x="65" y="80" width="70" height="70" rx="10" fill="#0f172a"/>
-                <rect x="80" y="105" width="12" height="8" fill="#a855f7"/>
-                <rect x="108" y="105" width="12" height="8" fill="#a855f7"/>
-                <rect x="50" y="155" width="100" height="90" rx="15" fill="#0f172a"/>
-                <path d="M30 130 L40 130 L40 210 L30 210 Z" fill="#a855f7"/>
-                <path d="M20 200 L50 200 L50 208 L20 208 Z" fill="#7c3aed"/>
-                <rect x="32" y="210" width="6" height="20" fill="#475569"/>
-            </svg>
-            <div class="shadow-ellipse"></div>
-        </div>
-    </main>
-
-    <!-- SEKCJA Z BILETAMI (DOKŁADNIE JAK NA ZDJĘCIU) -->
-    <section id="bilety" class="tickets-section">
-        <h2 class="section-title">WYBIERZ ZAJAZD</h2>
-        <p class="section-subtitle">Na którym chcesz dokonać zakupu!</p>
-        
-        <div class="tickets-container">
-            <!-- Karta biletowa z logiem Anarchi oraz ceną 15 zł -->
-            <div class="ticket-card">
-                <!-- Stabilne, stylizowane graficznie logo wewnątrz kafelka -->
-                <div class="card-image-logo">ANARCHIA FFA</div>
+                <!-- Cieniowana Korona Królewska -->
+                <path d="M55 35 L78 58 L100 35 L122 58 L145 35 L135 75 L65 75 Z" fill="#2563eb"/>
+                <path d="M78 58 L100 35 L122 58 L100 75 Z" fill="#1d4ed8" opacity="0.4"/>
                 
-                <h3 class="ticket-name">Zajazd PonadPodstawowy</h3>
-                <div class="ticket-price">15 zł</div>
+                <!-- Głowa -->
+                <rect x="65" y="75" width="70" height="70" rx="12" fill="#0f172a"/>
                 
-                <a href="#" class="ticket-btn" onclick="alert('Dziękujemy! System płatności dla Zajazdu u Piotra zostanie wkrótce uruchomiony.')">Przejdź &rarr;</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- STOPKA -->
-    <footer>
-        <p>&copy; 2026 zajazd.pl. Zapraszamy na Zajazd u Piotra! Wszelkie prawa zastrzeżone.</p>
-    </footer>
-
-</body>
-</html>
+                <!-- Rozświetlone Fioletowe Oczy -->
+                <rect x="78" y="100" width="14" height="8" fill="#c084fc" rx="2"/>
+                <rect x="108" y="100" width="14" height="8" fill="#c084fc" rx="2"/>
+                
+                <!-- Korpus / Zbroja -->
+                <rect x="45" y="150" width="110" height="95" rx="16" fill="#0f172a"/>
+                <!-- Detal pancerza -->
