@@ -5,184 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zajazd u Piotra</title>
     <style>
-        /* W pełni elastyczny i odblokowany układ strony z włączonym przewijaniem w dół */
+        /* Idealne odtworzenie układu 1:1 z grafiką 3D i płynnym przewijaniem */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         html { scroll-behavior: smooth; }
+        body { background-color: #ffffff; color: #111111; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto; }
         
-        body { 
-            background-color: #f8fafc; 
-            color: #0f172a; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow-x: hidden;
-            overflow-y: auto; /* WYMUSZENIE ODBLOKOWANIA PRZEWIJANIA PIONOWEGO */
-        }
-        
-        /* Górne menu z efektem niebieskiego podkreślenia */
-        header { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50; }
+        /* Menu górne */
+        header { background: white; border-bottom: 1px solid #eaeaea; position: sticky; top: 0; z-index: 50; }
         .nav-container { max-width: 1200px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-        .logo { font-size: 24px; font-weight: 900; color: #2563eb; letter-spacing: -1px; }
-        
+        .logo-top { font-size: 20px; font-weight: 900; color: #111111; letter-spacing: -0.5px; }
         nav { display: flex; gap: 24px; }
-        nav a { font-size: 14px; font-weight: 700; color: #334155; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; transition: all 0.2s ease-in-out; }
-        nav a:hover, nav a.active { color: #2563eb; border-bottom: 2px solid #2563eb; }
+        nav a { font-size: 13px; font-weight: 700; color: #555c66; text-decoration: none; padding-bottom: 5px; transition: color 0.2s; }
+        nav a:hover, nav a.active { color: #00b050; border-bottom: 2px solid #00b050; }
         
-        /* Sekcja główna - poprawiony, elastyczny margines i wysokość */
-        main { 
-            max-width: 1200px; 
-            width: 100%; 
-            margin: 0 auto; 
-            padding: 80px 20px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 30px; 
-        }
+        /* Główna sekcja (Hero) - Idealne ułożenie i proporcje */
+        .hero-section { max-width: 1200px; width: 100%; margin: 0 auto; padding: 80px 20px; display: flex; flex-direction: column; md-flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
+        .hero-content { flex: 1; max-width: 600px; text-align: center; }
         
-        .main-title-3d { 
-            font-size: 72px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            color: #2563eb; 
-            text-shadow: 0 4px 0 #1d4ed8, 0 8px 0 #1e40af, 0 12px 20px rgba(37, 99, 235, 0.4);
-            letter-spacing: -2px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+        /* Licznik Online */
+        .online-counter { display: inline-flex; align-items: center; background-color: #edfcf3; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
+        .online-counter .dot { width: 8px; height: 8px; background-color: #00b050; border-radius: 50%; margin-right: 8px; display: inline-block; }
+        .online-counter span { color: #00b050; font-size: 12px; font-weight: 700; }
         
-        .hero-content { max-width: 700px; text-align: center; }
-        .desc { color: #334155; font-size: 19px; margin-bottom: 36px; line-height: 1.7; }
-        .buttons { display: flex; gap: 16px; justify-content: center; }
+        /* Nagłówek i opis */
+        h1 { font-size: 64px; font-weight: 800; letter-spacing: -2px; margin-bottom: 15px; text-transform: uppercase; color: #111111; }
+        .desc { color: #666666; font-size: 16px; line-height: 1.6; margin-bottom: 30px; }
         
-        .btn { padding: 16px 48px; font-weight: 700; font-size: 16px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
-        .btn-blue { background: #2563eb; color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
-        .btn-blue:hover { background: #1d4ed8; transform: translateY(-2px); }
+        /* Przyciski w oryginalnych kolorach i układzie */
+        .buttons { display: flex; gap: 15px; justify-content: center; }
+        .btn { padding: 14px 28px; font-weight: 700; font-size: 13px; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background-color 0.2s; text-decoration: none; display: inline-block; }
+        .btn-green { background-color: #00b050; color: white; }
+        .btn-green:hover { background-color: #00873c; transform: translateY(-2px); }
+        .btn-dark { background-color: #111111; color: white; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-dark:hover { background-color: #222222; transform: translateY(-2px); }
 
-        /* Ulepszony ludzik z animacją */
-        .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; margin-top: 40px; }
-        .character-svg { width: 190px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; filter: drop-shadow(0 15px 25px rgba(37, 99, 235, 0.25)); }
-        .shadow-ellipse { width: 120px; height: 12px; background: rgba(15, 23, 42, 0.18); border-radius: 50%; margin-top: 10px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
+        /* Prawa strona - PRZYWRÓCONA ORYGINALNA POSTAĆ 3D Z GRAFIKĄ LEWITACJI */
+        .hero-image { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .character-img { max-width: 280px; height: auto; z-index: 10; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.15)); animation: lewitacja 2s ease-in-out infinite alternate; }
+        .shadow-ellipse { width: 150px; height: 14px; background: rgba(0, 0, 0, 0.12); border-radius: 50%; margin-top: -10px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
 
-        @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-18px); } }
-        @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.4; } }
-        
-        /* Sekcja wyboru trybu biletowego (Teraz bez problemu zjedziesz tu myszką) */
-        .tickets-section { background: white; border-top: 1px solid #e2e8f0; padding: 100px 20px; text-align: center; width: 100%; }
-        .section-title { font-size: 42px; font-weight: 800; letter-spacing: 2px; color: #0b1528; text-transform: uppercase; margin-bottom: 12px; }
-        .section-subtitle { color: #828a99; font-size: 13px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 40px; }
-        
-        .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding-bottom: 40px; }
-        
-        /* Karta kafelkowa oferty */
-        .ticket-card { 
-            background: white; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 8px; 
-            padding: 40px; 
-            width: 380px; 
-            text-align: center; 
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1); border-color: #2563eb; }
-        
-        .card-image-logo {
-            font-size: 26px;
-            font-weight: 900;
-            color: #2563eb;
-            text-shadow: 0 2px 0 #1d4ed8, 0 4px 8px rgba(37, 99, 235, 0.3);
-            letter-spacing: -1px;
-            margin-bottom: 25px;
-            background: #eff6ff;
-            padding: 15px 30px;
-            border-radius: 8px;
-            border: 2px dashed #93c5fd;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
-        .ticket-name { font-size: 20px; font-weight: 800; color: #0b1528; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-        .ticket-price { font-size: 28px; font-weight: 900; color: #0f172a; margin-bottom: 20px; }
-        
-        .ticket-btn { font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.2s; }
-        .ticket-btn:hover { color: #2563eb; }
-        
-        /* Stopka dolna na samym dole przewijanej strony */
-        footer { 
-            background: white; 
-            border-top: 1px solid #e2e8f0; 
-            padding: 40px 20px; 
-            width: 100%;
-            margin-top: auto;
+        @media (min-width: 768px) {
+            .hero-section { flex-direction: row; text-align: left; }
+            .hero-content { text-align: left; }
+            .buttons { justify-content: flex-start; }
         }
         
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
+        /* Animacje lewitacji i cienia */
+        @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-14px); } }
+        @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.85); opacity: 0.5; } }
         
-        /* Social Media (Lewa strona stopki) */
-        .footer-socials { display: flex; gap: 12px; }
-        .social-icon {
-            width: 36px;
-            height: 36px;
-            background: #f1f5f9;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #475569;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid #e2e8f0;
-        }
-        .social-icon:hover { background: #2563eb; color: white; border-color: #2563eb; transform: translateY(-2px); }
+        /* Sekcja wyboru trybu */
+        .tickets-section { background-color: #fafafa; padding: 80px 20px; text-align: center; width: 100%; border-top: 1px solid #eaeaea; }
+        .section-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 5px; color: #111111; text-transform: uppercase; }
+        .section-subtitle { color: #888888; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 40px; text-transform: uppercase; }
         
-        /* Logo na środku stopki */
-        .footer-logo-center {
-            font-size: 20px;
-            font-weight: 900;
-            color: #0f172a;
-            letter-spacing: -0.5px;
-            background: #eff6ff;
-            padding: 6px 16px;
-            border-radius: 6px;
-            border: 1px solid #bfdbfe;
-        }
+        .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; }
         
-        /* Prawa strona stopki z dokumentami i ikonkami */
-        .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: center; }
-        .footer-links a {
-            font-size: 12px;
-            font-weight: 700;
-            color: #64748b;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-        }
-        .footer-links a:hover { color: #2563eb; }
+        /* Oryginalna karta kafelkowa oferty */
+        .ticket-card { background: white; padding: 40px; border-radius: 12px; width: 280px; border: 1px solid #eaeaea; box-shadow: 0 4px 12px rgba(0,0,0,0.02); transition: box-shadow 0.3s, transform 0.3s; text-align: center; }
+        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #00b050; }
         
-        .icon-box {
-            font-size: 10px;
-            border: 1px solid #cbd5e1;
-            padding: 2px 5px;
-            border-radius: 4px;
-            background: #f8fafc;
-        }
-
+        .card-logo-container { margin-bottom: 25px; display: flex; justify-content: center; }
+        .anarchy-badge { background-color: #ff3333; color: white; font-weight: 900; padding: 6px 12px; border-radius: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 6px rgba(255,51,51,0.2); }
+        
+        .ticket-name { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #111111; }
+        .ticket-price { font-size: 24px; font-weight: 800; color: #00b050; margin-bottom: 15px; }
+        .card-link { font-size: 11px; color: #999999; text-decoration: none; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: inline-block; transition: color 0.2s; }
+        .ticket-card:hover .card-link { color: #111111; }
+        
+        /* Dolny rozbudowany pasek i stopka ze zrzutu ekranu */
+        footer { background: white; border-top: 1px solid #eaeaea; padding: 40px 20px; width: 100%; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 20px; }
+        
+        .footer-socials { display: flex; gap: 10px; }
+        .social-btn { width: 32px; height: 32px; background: #f5f5f5; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #555c66; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .social-btn:hover { background: #00b050; color: white; }
+        
+        .footer-logo-center { font-size: 16px; font-weight: 900; color: #111111; background: #edfcf3; padding: 4px 12px; border-radius: 4px; border: 1px solid #c3f2d2; }
+        
+        .footer-links { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+        .footer-links a { font-size: 11px; font-weight: 700; color: #666666; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 4px; }
+        .footer-links a:hover { color: #00b050; }
+        
         @media (min-width: 768px) {
             .footer-container { flex-direction: row; }
             .footer-links { align-items: flex-end; }
@@ -194,35 +98,58 @@
     <!-- MENU GÓRNE -->
     <header>
         <div class="nav-container">
-            <span class="logo">ZAJAZD.PL</span>
+            <span class="logo-top">ZAJAZD.PL</span>
             <nav>
                 <a href="#" class="active">STRONA GŁÓWNA</a>
                 <a href="#bilety">BILET</a>
-                <a href="#footer-anchor">REGULAMIN</a>
+                <a href="#footer-links-block">REGULAMIN</a>
             </nav>
         </div>
     </header>
 
-    <!-- SEKCJA GŁÓWNA -->
-    <main>
-        <h1 class="main-title-3d">ZAJAZD U PIOTRA</h1>
-
+    <!-- SEKCJA GŁÓWNA (HERO) -->
+    <main class="hero-section">
         <div class="hero-content">
-            <p class="desc">Serdecznie zapraszamy na jedyny w swoim rodzaju <strong>Zajazd u Piotra</strong>! Gwarantujemy, że wyjdziesz stąd niesamowicie rozśmieszony, w pełni zrelaksowany i niesłychanie zadowolony. Gwarantujemy, że zaraz po powrocie do domu Twoją jedyną myślą będzie ponowny powrót w nasze progi. Odkryj nasz wyśmienity Zajazd i już teraz zapewnij sobie wstęp na najbliższe wydarzenie!</p>
+            <!-- Oryginalny zielony licznik -->
+            <div class="online-counter">
+                <span class="dot"></span>
+                <span>Graczy online: 170</span>
+            </div>
 
+            <!-- Poprawiona wielka nazwa serwera -->
+            <h1>ZAJAZD U PIOTRA</h1>
+            <p class="desc">Zapraszamy na jedyny w swoim rodzaju Zajazd u Piotra! Gwarantujemy, że wyjdziesz stąd niesamowicie rozśmieszony, w pełni zrelaksowany i niesłychanie zadowolony. Gwarantujemy, że zaraz po powrocie do domu Twoją jedyną myślą będzie ponowny powrót w nasze progi. Odkryj nasz wyśmienity Zajazd i już teraz zapewnij sobie wstęp na najbliższe wydarzenie!</p>
+
+            <!-- Oryginalne przyciski -->
             <div class="buttons">
-                <a href="#bilety" class="btn btn-blue">ZAKUP BILET TERAZ !!</a>
+                <a href="#bilety" class="btn btn-green">ZAKUP BILET TERAZ !!</a>
+                <a href="https://discord.gg" target="_blank" class="btn btn-dark">
+                    DOŁĄCZ DO NAS
+                </a>
             </div>
         </div>
 
-        <!-- ULEPSZONY LUDZIK Z LEPSZYMI DETALAMI KORONY I MIECZA -->
-        <div class="hero-right">
-            <svg class="character-svg" viewBox="0 0 200 300" xmlns="http://w3.org">
-                <!-- Cieniowana Korona Królewska -->
-                <path d="M55 35 L78 58 L100 35 L122 58 L145 35 L135 75 L65 75 Z" fill="#2563eb"/>
-                <path d="M78 58 L100 35 L122 58 L100 75 Z" fill="#1d4ed8" opacity="0.4"/>
-                
-                <!-- Głowa -->
-                <rect x="65" y="75" width="70" height="70" rx="12" fill="#0f172a"/>
-                
-                <!-- Oczy -->
+        <!-- NAPRAWIONA I PRZYWRÓCONA DOKŁADNA POSTAĆ 3D Z ORYGINALNEGO PROJEKTU -->
+        <div class="hero-image">
+            <img src="https://ibb.co" alt="Minecraft Character" class="character-img">
+            <div class="shadow-ellipse"></div>
+        </div>
+    </main>
+
+    <!-- SEKCJA Z BILETAMI (STYLIZOWANA 1:1 JAK NA ZRZUCIE) -->
+    <section id="bilety" class="tickets-section">
+        <h2 class="section-title">WYBIERZ TRYB</h2>
+        <p class="section-subtitle">Na którym chcesz dokonać zakupu!</p>
+        
+        <div class="tickets-container">
+            <div class="ticket-card">
+                <div class="card-logo-container">
+                    <span class="anarchy-badge">ZAJAZD U PIOTRA</span>
+                </div>
+                <h3 class="ticket-name">Zajazd PonadPodstawowy</h3>
+                <div class="ticket-price">15 zł</div>
+                <a href="#" class="card-link" onclick="alert('System płatności dla Zajazdu u Piotra zostanie wkrótce uruchomiony.')">PRZEJDŹ &rarr;</a>
+            </div>
+        </div>
+    </section>
+
