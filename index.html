@@ -19,12 +19,20 @@
         nav a { font-size: 14px; font-weight: 700; color: #334155; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; transition: all 0.2s ease-in-out; }
         nav a:hover, nav a.active { color: #2563eb; border-bottom: 2px solid #2563eb; }
         
-        /* Sekcja główna z wyśrodkowanym nowym logo z gry */
+        /* Sekcja główna z bezpiecznym logiem tekstowym 3D */
         main { flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; }
         
-        /* Kontener na nowe logo 3D */
-        .logo-3d-container { max-width: 650px; width: 100%; text-align: center; margin-bottom: 10px; }
-        .logo-3d { width: 100%; height: auto; filter: drop-shadow(0 10px 20px rgba(37, 99, 235, 0.2)); }
+        /* Stabilne, stylizowane logo główne (nie zniknie!) */
+        .main-title-3d { 
+            font-size: 72px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            color: #2563eb; 
+            text-shadow: 0 4px 0 #1d4ed8, 0 8px 0 #1e40af, 0 12px 20px rgba(37, 99, 235, 0.4);
+            letter-spacing: -2px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
         
         .hero-content { max-width: 700px; text-align: center; }
         .desc { color: #334155; font-size: 19px; margin-bottom: 36px; line-height: 1.7; }
@@ -34,7 +42,7 @@
         .btn-blue { background: #2563eb; color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
         .btn-blue:hover { background: #1d4ed8; transform: translateY(-2px); }
 
-        /* Układ lewitującej postaci pod tekstami dla lepszego balansu strony */
+        /* Lewitująca postać */
         .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; margin-top: 40px; }
         .character-svg { width: 180px; height: auto; z-index: 10; animation: lewitacja 2s ease-in-out infinite alternate; }
         .shadow-ellipse { width: 120px; height: 12px; background: rgba(15, 23, 42, 0.15); border-radius: 50%; margin-top: 10px; filter: blur(4px); z-index: 5; animation: cien-skala 2s ease-in-out infinite alternate; }
@@ -42,21 +50,49 @@
         @keyframes lewitacja { 0% { transform: translateY(0); } 100% { transform: translateY(-15px); } }
         @keyframes cien-skala { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.85); opacity: 0.5; } }
         
-        /* Sekcja wyboru trybu */
+        /* Sekcja wyboru trybu ze zrzutu ekranu */
         .tickets-section { background: white; border-top: 1px solid #e2e8f0; padding: 80px 20px; text-align: center; width: 100%; }
         .section-title { font-size: 42px; font-weight: 800; font-family: 'Segoe UI', sans-serif; letter-spacing: 2px; color: #0b1528; text-transform: uppercase; margin-bottom: 12px; }
         .section-subtitle { color: #828a99; font-size: 13px; font-weight: 700; font-family: 'Segoe UI', sans-serif; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 40px; }
         
         .tickets-container { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; }
         
-        /* Karta biletu */
-        .ticket-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 40px; width: 360px; text-align: center; transition: all 0.3s; }
-        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1); border-color: #2563eb; }
-        .ticket-type { font-size: 12px; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; }
-        .ticket-name { font-size: 24px; font-weight: 800; margin-bottom: 16px; color: #0f172a; }
-        .ticket-price { font-size: 38px; font-weight: 900; margin-bottom: 24px; color: #2563eb; }
-        .ticket-btn { display: block; text-align: center; background: #0f172a; color: white; padding: 14px; text-decoration: none; font-weight: 700; border-radius: 12px; transition: background 0.2s; }
-        .ticket-btn:hover { background: #1e293b; }
+        /* NOWA KARTA KAFELKOWA (DOKŁADNIE JAK NA TWÓIM OBRAZKU) */
+        .ticket-card { 
+            background: white; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 4px; 
+            padding: 40px; 
+            width: 380px; 
+            text-align: center; 
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
+        
+        /* Stylizowane, bezpieczne graficzne logo Anarchia wewnątrz karty */
+        .card-image-logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #dc2626;
+            text-shadow: 0 3px 0 #991b1b, 0 6px 10px rgba(220, 38, 38, 0.3);
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            background: #fef2f2;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: 2px dashed #fca5a5;
+            display: inline-block;
+        }
+
+        .ticket-name { font-size: 22px; font-weight: 800; color: #0b1528; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .ticket-price { font-size: 26px; font-weight: 900; color: #2563eb; margin-bottom: 20px; }
+        
+        .ticket-btn { font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.2s; }
+        .ticket-btn:hover { color: #2563eb; }
         
         /* Stopka */
         footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
@@ -78,10 +114,8 @@
 
     <!-- SEKCJA GŁÓWNA -->
     <main>
-        <!-- Wstawione nowe, niebieskie logo 3D na sam środek -->
-        <div class="logo-3d-container">
-            <img src="https://ibb.co" alt="Zajazd u Piotra Logo" class="logo-3d">
-        </div>
+        <!-- Zabezpieczony nagłówek 3D, który działa od razu -->
+        <h1 class="main-title-3d">ZAJAZD U PIOTRA</h1>
 
         <div class="hero-content">
             <p class="desc">Serdecznie zapraszamy na jedyny w swoim rodzaju <strong>Zajazd u Piotra</strong>! Gwarantujemy, że wyjdziesz stąd niesamowicie rozśmieszony, w pełni zrelaksowany i niesłychanie zadowolony. Gwarantujemy, że zaraz po powrocie do domu Twoją jedyną myślą będzie ponowny powrót w nasze progi. Odkryj nasz wyśmienity Zajazd i już teraz zapewnij sobie wstęp na najbliższe wydarzenie!</p>
@@ -91,7 +125,7 @@
             </div>
         </div>
 
-        <!-- Postać królewska SVG pod spodem -->
+        <!-- Postać królewska SVG -->
         <div class="hero-right">
             <svg class="character-svg" viewBox="0 0 200 300" xmlns="http://w3.org">
                 <path d="M60 40 L80 60 L100 40 L120 60 L140 40 L130 80 L70 80 Z" fill="#2563eb"/>
@@ -107,17 +141,21 @@
         </div>
     </main>
 
-    <!-- SEKCJA Z BILETAMI -->
+    <!-- SEKCJA Z BILETAMI (DOKŁADNIE JAK NA ZDJĘCIU) -->
     <section id="bilety" class="tickets-section">
         <h2 class="section-title">WYBIERZ ZAJAZD</h2>
         <p class="section-subtitle">Na którym chcesz dokonać zakupu!</p>
         
         <div class="tickets-container">
+            <!-- Karta biletowa z logiem Anarchi oraz ceną 15 zł -->
             <div class="ticket-card">
-                <span class="ticket-type">Pakiet Ekskluzywny</span>
+                <!-- Stabilne, stylizowane graficznie logo wewnątrz kafelka -->
+                <div class="card-image-logo">ANARCHIA FFA</div>
+                
                 <h3 class="ticket-name">Zajazd PonadPodstawowy</h3>
                 <div class="ticket-price">15 zł</div>
-                <a href="#" class="ticket-btn" onclick="alert('Dziękujemy! System płatności dla Zajazdu u Piotra zostanie wkrótce uruchomiony.')">Wybierz bilet</a>
+                
+                <a href="#" class="ticket-btn" onclick="alert('Dziękujemy! System płatności dla Zajazdu u Piotra zostanie wkrótce uruchomiony.')">Przejdź &rarr;</a>
             </div>
         </div>
     </section>
