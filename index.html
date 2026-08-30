@@ -3,37 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>zajazdy.pl - Serwer Minecraft</title>
+    <title>Zajazd - Tradycja i Komfort</title>
     <style>
         /* Profesjonalny pakiet nowoczesnych stylów CSS wbudowany w stronę */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        html { scroll-behavior: smooth; } /* Płynne przewijanie do sekcji biletów */
         body { background-color: #f9fafb; color: #111827; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
         
         /* Menu górne */
         header { background: white; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 50; }
         .nav-container { max-width: 1200px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-        .logo { font-size: 24px; font-weight: 900; color: #059669; letter-spacing: -1px; }
+        .logo { font-size: 24px; font-weight: 900; color: #b45309; letter-spacing: -1px; } /* Zmiana koloru na elegancki brąz/bursztyn pasujący do zajazdu */
         nav a { font-size: 14px; font-weight: 600; color: #4b5563; text-decoration: none; margin-left: 24px; transition: color 0.2s; }
-        nav a:hover, nav a.active { color: #059669; }
+        nav a:hover, nav a.active { color: #b45309; }
         
-        /* Sekcja główna */
-        main { flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 80px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .hero-content { max-width: 600px; text-align: center; }
+        /* Sekcja główna (Przedstawienie Zajazdu) */
+        main { flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .hero-content { max-width: 700px; text-align: center; }
         
-        h1 { font-size: 64px; font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; color: #111827; }
-        .desc { color: #6b7280; font-size: 18px; margin-bottom: 32px; line-height: 1.6; }
+        h1 { font-size: 64px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; color: #111827; }
+        .desc { color: #4b5563; font-size: 19px; margin-bottom: 36px; line-height: 1.7; }
         
         /* Przyciski */
         .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .btn { padding: 14px 48px; font-weight: 700; font-size: 15px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
-        .btn-green { background: #059669; color: white; box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3); }
-        .btn-green:hover { background: #047857; transform: translateY(-2px); }
+        .btn { padding: 16px 48px; font-weight: 700; font-size: 16px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+        .btn-amber { background: #b45309; color: white; box-shadow: 0 10px 15px -3px rgba(180, 83, 9, 0.3); }
+        .btn-amber:hover { background: #92400e; transform: translateY(-2px); }
         
-        /* Alert o kopiowaniu */
-        #alert-kopia { margin-top: 20px; font-size: 14px; font-weight: 600; color: #059669; opacity: 0; transition: opacity 0.3s; }
+        /* Sekcja Biletów / Wydarzeń */
+        .tickets-section { background: white; border-top: 1px solid #e5e7eb; padding: 80px 20px; text-align: center; width: 100%; }
+        .section-title { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+        .section-subtitle { color: #6b7280; font-size: 15px; margin-bottom: 40px; }
+        
+        .tickets-container { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+        .ticket-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 32px; width: 320px; text-align: left; transition: all 0.3s; }
+        .ticket-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); border-color: #b45309; }
+        
+        .ticket-type { font-size: 12px; font-weight: 700; color: #b45309; tracking-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .ticket-name { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+        .ticket-price { font-size: 28px; font-weight: 800; margin-bottom: 20px; color: #111827; }
+        .ticket-btn { display: block; text-align: center; background: #111827; color: white; padding: 12px; rounded-radius: 8px; text-decoration: none; font-weight: 700; border-radius: 8px; transition: background 0.2s; }
+        .ticket-btn:hover { background: #1f2937; }
         
         /* Stopka */
-        footer { background: #111827; color: #9ca3af; text-align: center; padding: 20px; font-size: 12px; border-top: 1px solid #1f2937; }
+        footer { background: #111827; color: #9ca3af; text-align: center; padding: 24px; font-size: 13px; border-top: 1px solid #1f2937; }
     </style>
 </head>
 <body>
@@ -41,46 +54,54 @@
     <!-- MENU GÓRNE -->
     <header>
         <div class="nav-container">
-            <span class="logo">ZAJAZDY.PL</span>
+            <span class="logo">ZAJAZD.PL</span>
             <nav>
                 <a href="#" class="active">STRONA GŁÓWNA</a>
-                <a href="#">DOKUMENTY</a>
-                <a href="#">BILET</a>
+                <a href="#bilety">BILET</a>
             </nav>
         </div>
     </header>
 
-    <!-- SEKCJA GŁÓWNA -->
+    <!-- SEKCJA GŁÓWNA (PRZEDSTAWIENIE ZAJAZDU) -->
     <main>
         <div class="hero-content">
-            <h1>ZAJAZDY.PL</h1>
-            <p class="desc">Wszystkie najnowsze informacje i aktualizacje znajdziesz na naszym Discordzie! Dołącz do wspólnej gry.</p>
+            <h1>Tradycyjny Zajazd</h1>
+            <p class="desc">Zapraszamy do wyjątkowego miejsca, gdzie tradycyjna polska gościnność łączy się z nowoczesnym komfortem. Odkryj naszą wyśmienitą kuchnię, zrelaksuj się w przytulnych pokojach i weź udział w wyjątkowych wydarzeniach kulturalnych.</p>
 
             <div class="buttons">
-                <button id="przycisk-graj" class="btn btn-green">ZAGRAJ TERAZ</button>
+                <!-- Przycisk z linkiem przewijającym do sekcji biletów -->
+                <a href="#bilety" class="btn btn-amber">ZAKUP BILET TERAZ !!</a>
             </div>
-            
-            <p id="alert-kopia">⚡ Skopiowano IP serwera do schowka! (mc.zajazdy.pl)</p>
         </div>
     </main>
 
-    <!-- LOGIKA DO DZIAŁANIA PRZYCISKU -->
-    <script>
-        const IP_SERWERA = "mc.zajazdy.pl";
+    <!-- SEKCJA Z BILETAMI -->
+    <section id="bilety" class="tickets-section">
+        <h2 class="section-title">DOSTĘPNE BILETY</h2>
+        <p class="section-subtitle">Wybierz bilet na interesujące Cię wydarzenie w naszym Zajeździe</p>
+        
+        <div class="tickets-container">
+            <!-- Przykładowy Bilet 1 -->
+            <div class="ticket-card">
+                <span class="ticket-type">Wydarzenie</span>
+                <h3 class="ticket-name">Wieczór z Muzyką na Żywo</h3>
+                <p class="ticket-price">49 zł</p>
+                <a href="#" class="ticket-btn" onclick="alert('System płatności zostanie uruchomiony wkrótce!')">Wybierz</a>
+            </div>
 
-        // Kopiowanie IP po kliknięciu "ZAGRAJ TERAZ"
-        document.getElementById('przycisk-graj').addEventListener('click', () => {
-            navigator.clipboard.writeText(IP_SERWERA).then(() => {
-                const alert = document.getElementById('alert-kopia');
-                alert.style.opacity = '1';
-                setTimeout(() => { alert.style.opacity = '0'; }, 3000);
-            });
-        });
-    </script>
+            <!-- Przykładowy Bilet 2 -->
+            <div class="ticket-card">
+                <span class="ticket-type">Uczta</span>
+                <h3 class="ticket-name">Biesiada Staropolska</h3>
+                <p class="ticket-price">120 zł</p>
+                <a href="#" class="ticket-btn" onclick="alert('System płatności zostanie uruchomiony wkrótce!')">Wybierz</a>
+            </div>
+        </div>
+    </section>
 
     <!-- STOPKA -->
     <footer>
-        <p>&copy; 2026 zajazdy.pl. Wszelkie prawa zastrzeżone. Strona nie jest powiązana z firmą Mojang.</p>
+        <p>&copy; 2026 zajazd.pl. Wszelkie prawa zastrzeżone. Zapraszamy ponownie!</p>
     </footer>
 
 </body>
