@@ -25,17 +25,15 @@
         
         /* Przyciski */
         .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .btn { padding: 14px 32px; font-weight: 700; font-size: 14px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+        .btn { padding: 14px 48px; font-weight: 700; font-size: 15px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
         .btn-green { background: #059669; color: white; box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3); }
         .btn-green:hover { background: #047857; transform: translateY(-2px); }
-        .btn-dark { background: #111827; color: white; box-shadow: 0 10px 15px -3px rgba(17, 24, 39, 0.2); }
-        .btn-dark:hover { background: #1f2937; transform: translateY(-2px); }
         
         /* Alert o kopiowaniu */
         #alert-kopia { margin-top: 20px; font-size: 14px; font-weight: 600; color: #059669; opacity: 0; transition: opacity 0.3s; }
         
         /* Stopka */
-        footer { background: #111827; color: #9ca3af; text-align: center; padding: 20px; font-size: 12px; border-t: 1px solid #1f2937; }
+        footer { background: #111827; color: #9ca3af; text-align: center; padding: 20px; font-size: 12px; border-top: 1px solid #1f2937; }
     </style>
 </head>
 <body>
@@ -47,7 +45,7 @@
             <nav>
                 <a href="#" class="active">STRONA GŁÓWNA</a>
                 <a href="#">DOKUMENTY</a>
-                <a href="#">VOUCHER</a>
+                <a href="#">BILET</a>
             </nav>
         </div>
     </header>
@@ -60,14 +58,13 @@
 
             <div class="buttons">
                 <button id="przycisk-graj" class="btn btn-green">ZAGRAJ TERAZ</button>
-                <button id="przycisk-discord" class="btn btn-dark">DOŁĄCZ DO NAS</button>
             </div>
             
             <p id="alert-kopia">⚡ Skopiowano IP serwera do schowka! (mc.zajazdy.pl)</p>
         </div>
     </main>
 
-    <!-- PROSTA LOGIKA DO DIZŁANIA PRZYCISKÓW -->
+    <!-- LOGIKA DO DZIAŁANIA PRZYCISKU -->
     <script>
         const IP_SERWERA = "mc.zajazdy.pl";
 
@@ -78,11 +75,6 @@
                 alert.style.opacity = '1';
                 setTimeout(() => { alert.style.opacity = '0'; }, 3000);
             });
-        });
-
-        // Przekierowanie na Discord po kliknięciu "DOŁĄCZ DO NAS"
-        document.getElementById('przycisk-discord').addEventListener('click', () => {
-            window.open('https://discord.gg', '_blank'); // Tutaj możesz wkleić swój prawdziwy link do Discorda
         });
     </script>
 
