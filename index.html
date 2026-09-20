@@ -52,25 +52,25 @@
     <p>Poniżej znajduje się adres IP, z którego aktualnie łączysz się z tą stroną:</p>
     
     <!-- Miejsce na adres IP -->
-    <div id="ip-display" class="ip-box">Pobieranie adresu...</div>
+    <div id="ip-display" class="ip-box">Pobieranie adresu IP...</div>
 </div>
 
-<!-- Ten skrypt pobiera dane z Cloudflare w sposób, którego AdBlock nie zablokuje -->
 <script>
-    function klientIP(dane) {
-        // Cloudflare zwraca tekst linia po linii, szukamy tej zaczynającej się od "ip="
-        const linie = dane.split('\n');
-        const liniaIP = linie.find(l => l.startsWith('ip='));
-        if (liniaIP) {
-            const ip = liniaIP.split('=')[1];
-            document.getElementById('ip-display').innerText = ip;
-        } else {
-            document.getElementById('ip-display').innerText = "Nie udało się odczytać IP.";
-        }
-    }
+    // Prosta, bezbłędna funkcja pobierająca czysty tekst IP
+    fetch('https://ipapi.co')
+        .then(odpowiedz => {
+            if (!odpowiedz.ok) throw new Error();
+            return odpowiedz.text();
+        })
+        .then(ip => {
+            // Wstawia bezpośrednio pobrany tekst (adres IP) do ramki
+            document.getElementById('ip-display').innerText = ip.trim();
+        })
+        .catch(blad => {
+            document.getElementById('ip-display').innerText = "Nie udało się pobrać adresu IP.";
+            document.getElementById('ip-display').style.color = "#c0392b";
+        });
 </script>
-<!-- Wywołanie oficjalnego i bezpiecznego endpointu Cloudflare jako skryptu tekstowego -->
-<script src="https://cloudflare.com"></script>
 
 </body>
 </html>
