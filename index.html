@@ -43,9 +43,6 @@
             font-weight: bold;
             word-break: break-all;
         }
-        .loading {
-            color: #e67e22;
-        }
     </style>
 </head>
 <body>
@@ -54,35 +51,23 @@
     <h1>Twoje Połączenie</h1>
     <p>Poniżej znajduje się adres IP, z którego aktualnie łączysz się z tą stroną:</p>
     
-    <!-- Miejsce, w którym wyświetli się IP -->
-    <div id="ip-display" class="ip-box loading">Pobieranie adresu IP...</div>
-</div>
-
-<script>
-    // Funkcja pobierająca IP z zewnętrznego, bezpiecznego API
-    async function pobierzIP() {
-        const wyswietlacz = document.getElementById('ip-display');
-        try {
-            // Używamy darmowego API ipify, które zwraca adres w formacie JSON
-            const odpowiedz = await fetch('https://ipify.org');
-            if (!odpowiedz.ok) throw new Error('Błąd sieci');
-            
-            // Pobranie danych w formacie JSON
-            const dane = await odpowiedz.json();
-            
-            // Wyświetlenie pobranego adresu IP i usunięcie koloru ładowania
-            wyswietlacz.innerText = dane.ip;
-            wyswietlacz.classList.remove('loading');
-        } catch (error) {
-            wyswietlacz.innerText = "Nie udało się pobrać adresu IP.";
-            wyswietlacz.style.color = "#c0392b";
-            console.error("Błąd podczas pobierania IP:", error);
+    <!-- Serwer PHP bezpośrednio wpisuje tutaj IP użytkownika przed wysłaniem strony -->
+    <div class="ip-box">
+        <?php
+        // Sprawdzanie adresu IP z uwzględnieniem serwerów proxy
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
         }
-    }
-
-    // Uruchomienie funkcji automatycznie po załadowaniu strony
-    window.onload = pobierzIP;
-</script>
+        
+        // Bezpieczne wyświetlenie adresu IP
+        echo htmlspecialchars($ip, ENT_QUOTES, 'UTF-8');
+        ?>
+    </div>
+</div>
 
 </body>
 </html>
