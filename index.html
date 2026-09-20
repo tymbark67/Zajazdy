@@ -90,26 +90,26 @@
 </div>
 
 <script>
-    // Pobieranie danych z darmowego systemu ip-api przez protokół HTTP/HTTPS
-    fetch('https://ip-api.com')
+    // Bezpieczne zapytanie HTTPS do bazy ipwho.is (całkowicie darmowe)
+    fetch('https://ipwho.is')
         .then(odpowiedz => {
             if (!odpowiedz.ok) throw new Error();
             return odpowiedz.json();
         })
         .then(dane => {
-            if (dane.status === "fail") throw new Error();
+            if (dane.success === false) throw new Error();
             
-            // Wstawianie danych do odpowiednich pól na stronie
-            document.getElementById('ip-display').innerText = dane.query;
+            // Wstawianie poprawnych danych do okienek
+            document.getElementById('ip-display').innerText = dane.ip;
             document.getElementById('country-display').innerText = dane.country;
-            document.getElementById('region-display').innerText = dane.regionName;
+            document.getElementById('region-display').innerText = dane.region;
             document.getElementById('city-display').innerText = dane.city;
-            document.getElementById('isp-display').innerText = dane.isp;
+            document.getElementById('isp-display').innerText = dane.connection.isp;
         })
         .catch(blad => {
             const pola = ['ip-display', 'country-display', 'region-display', 'city-display', 'isp-display'];
             pola.forEach(id => {
-                document.getElementById(id).innerText = "Błąd ładowania";
+                document.getElementById(id).innerText = "Błąd bezpiecznego połączenia";
                 document.getElementById(id).style.color = "#c0392b";
             });
         });
