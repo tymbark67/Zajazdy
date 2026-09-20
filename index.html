@@ -51,23 +51,22 @@
     <h1>Twoje Połączenie</h1>
     <p>Poniżej znajduje się adres IP, z którego aktualnie łączysz się z tą stroną:</p>
     
-    <!-- Miejsce na adres IP -->
     <div id="ip-display" class="ip-box">Pobieranie adresu IP...</div>
 </div>
 
 <script>
-    // Prosta, bezbłędna funkcja pobierająca czysty tekst IP
-    fetch('https://ipapi.co')
+    // Zapytanie do oficjalnego, darmowego serwisu Amazon AWS checkip
+    fetch('https://amazonaws.com')
         .then(odpowiedz => {
             if (!odpowiedz.ok) throw new Error();
             return odpowiedz.text();
         })
         .then(ip => {
-            // Wstawia bezpośrednio pobrany tekst (adres IP) do ramki
+            // Czyszczenie tekstu z ewentualnych białych znaków i wyświetlenie IP
             document.getElementById('ip-display').innerText = ip.trim();
         })
         .catch(blad => {
-            document.getElementById('ip-display').innerText = "Nie udało się pobrać adresu IP.";
+            document.getElementById('ip-display').innerText = "Błąd pobierania danych sieciowych.";
             document.getElementById('ip-display').style.color = "#c0392b";
         });
 </script>
