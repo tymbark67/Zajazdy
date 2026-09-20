@@ -43,6 +43,9 @@
             font-weight: bold;
             word-break: break-all;
         }
+        .loading {
+            color: #e67e22;
+        }
     </style>
 </head>
 <body>
@@ -51,23 +54,44 @@
     <h1>Twoje Połączenie</h1>
     <p>Poniżej znajduje się adres IP, z którego aktualnie łączysz się z tą stroną:</p>
     
-    <!-- Serwer PHP bezpośrednio wpisuje tutaj IP użytkownika przed wysłaniem strony -->
-    <div class="ip-box">
-        <?php
-        // Sprawdzanie adresu IP z uwzględnieniem serwerów proxy
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        
-        // Bezpieczne wyświetlenie adresu IP
-        echo htmlspecialchars($ip, ENT_QUOTES, 'UTF-8');
-        ?>
-    </div>
+    <div id="ip-display" class="ip-box loading">Pobieranie adresu IP...</div>
 </div>
+
+<script>
+    async function pobierzIP() {
+        const wyswietlacz = document.getElementById('ip-display');
+        
+        // Metoda 1: Próba pobrania z ipapi.co (często pomijane przez AdBlocki)
+        try {
+            const odpowiedz = await fetch('https://ipapi.co');
+            if (!odpowiedz.ok) throw new Error('Błąd ipapi');
+            const dane = await odpowiedz.json();
+            wyswietlacz.innerText = dane.ip;
+            wyswietlacz.classList.remove('loading');
+            return; // Sukces, kończymy działanie
+        } catch (e) {
+            console.log("Metoda 1 zablokowana lub nieudana, próbuję metody zapasowej...");
+        }
+
+        // Metoda 2 (Zapasowa): Próba pobrania z api.ipify.org
+        try {
+            const odpowiedz = await fetch('https://ipify.org');
+            if (!odpowiedz.ok) throw new Error('Błąd ipify');
+            const dane = await odpowiedz.json();
+            wyswietlacz.innerText = dane.ip;
+            wyswietlacz.classList.remove('loading');
+            return;
+        } catch (e) {
+            console.log("Metoda 2 również zawiodła.");
+        }
+
+        // Jeśli oba źródła zostały zablokowane przez przeglądarkę / AdBlock
+        wyswietlacz.innerText = "Zablokowano pobieranie IP (wyłącz AdBlocka dla tej strony).";
+        wyswietlacz.style.color = "#c0392b";
+    }
+
+    window.onload = pobierzIP;
+</script>
 
 </body>
 </html>
