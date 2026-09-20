@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weryfikacja Bezpieczeństwa Połączenia</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        .ip-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 18px;
+            color: #2980b9;
+            font-weight: bold;
+            word-break: break-all;
+        }
+        .loading {
+            color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Twoje Połączenie</h1>
+    <p>Poniżej znajduje się adres IP, z którego aktualnie łączysz się z tą stroną:</p>
+    
+    <!-- Miejsce, w którym wyświetli się IP -->
+    <div id="ip-display" class="ip-box loading">Pobieranie adresu IP...</div>
+</div>
+
+<script>
+    // Funkcja pobierająca IP z zewnętrznego, bezpiecznego API
+    async function pobierzIP() {
+        const wyświetlacz = document.getElementById('ip-display');
+        try {
+            // Używamy darmowego API ipify, które zwraca adres w formacie tekstowym
+            const odpowiedz = await fetch('https://ipify.org');
+            if (!odpowiedz.ok) throw new Error('Błąd sieci');
+            
+            const dane = await json = await odpowiedz.json();
+            
+            // Wyświetlamy pobrany adres IP i usuwamy styl ładowania
+            wyświetlacz.innerText = dane.ip;
+            wyświetlacz.classList.remove('loading');
+        } catch (error) {
+            wyświetlacz.innerText = "Nie udało się pobrać adresu IP.";
+            wyświetlacz.style.color = "#c0392b";
+            console.error("Błąd podczas pobierania IP:", error);
+        }
+    }
+
+    // Uruchomienie funkcji po załadowaniu strony
+    window.onload = pobierzIP;
+</script>
+
+</body>
+</html>
 
