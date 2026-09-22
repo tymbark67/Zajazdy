@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weryfikacja Bezpieczeństwa Połączenia</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .data-box {
+            margin-top: 12px;
+            padding: 12px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            text-align: left;
+        }
+        .label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .value {
+            font-family: monospace;
+            font-size: 16px;
+            color: #2980b9;
+            font-weight: bold;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Twoje Połączenie</h1>
+    <p>Informacje o Twojej sieci wykryte na podstawie adresu IP:</p>
+    
+    <div class="data-box">
+        <span class="label">Adres IP:</span>
+        <span id="ip-display" class="value">Pobieranie...</span>
+    </div>
+
+    <div class="data-box">
+        <span class="label">Kraj:</span>
+        <span id="country-display" class="value">Pobieranie...</span>
+    </div>
+
+    <div class="data-box">
+        <span class="label">Region / Województwo:</span>
+        <span id="region-display" class="value">Pobieranie...</span>
+    </div>
+
+    <div class="data-box">
+        <span class="label">Miasto:</span>
+        <span id="city-display" class="value">Pobieranie...</span>
+    </div>
+
+    <div class="data-box">
+        <span class="label">Dostawca Internetu:</span>
+        <span id="isp-display" class="value">Pobieranie...</span>
+    </div>
+</div>
+
+<script>
+    // Bezpieczne zapytanie HTTPS do bazy ipwho.is (całkowicie darmowe)
+    fetch('https://ipwho.is')
+        .then(odpowiedz => {
+            if (!odpowiedz.ok) throw new Error();
+            return odpowiedz.json();
+        })
+        .then(dane => {
+            if (dane.success === false) throw new Error();
+            
+            // Wstawianie poprawnych danych do okienek
+            document.getElementById('ip-display').innerText = dane.ip;
+            document.getElementById('country-display').innerText = dane.country;
+            document.getElementById('region-display').innerText = dane.region;
+            document.getElementById('city-display').innerText = dane.city;
+            document.getElementById('isp-display').innerText = dane.connection.isp;
+        })
+        .catch(blad => {
+            const pola = ['ip-display', 'country-display', 'region-display', 'city-display', 'isp-display'];
+            pola.forEach(id => {
+                document.getElementById(id).innerText = "Błąd bezpiecznego połączenia";
+                document.getElementById(id).style.color = "#c0392b";
+            });
+        });
+</script>
+
+</body>
+</html>
 
